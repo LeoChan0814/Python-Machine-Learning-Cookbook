@@ -1,8 +1,9 @@
 import sys
-
 import numpy as np
 
-filename = sys.argv[1]
+# filename = sys.argv[1]
+
+filename = 'E:/Github local/Python-Machine-Learning-Cookbook/Chapter01/data_singlevar.txt'
 X = []
 y = []
 with open(filename, 'r') as f:
@@ -16,11 +17,11 @@ num_training = int(0.8 * len(X))
 num_test = len(X) - num_training
 
 # Training data
-X_train = np.array(X[:num_training]).reshape((num_training,1))
+X_train = np.array(X[:num_training]).reshape((num_training, 1))
 y_train = np.array(y[:num_training])
 
 # Test data
-X_test = np.array(X[num_training:]).reshape((num_test,1))
+X_test = np.array(X[num_training:]).reshape((num_test, 1))
 y_test = np.array(y[num_training:])
 
 # Create linear regression object
@@ -46,23 +47,22 @@ plt.show()
 # Measure performance
 import sklearn.metrics as sm
 
-print "Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred), 2) 
-print "Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred), 2) 
-print "Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred), 2) 
-print "Explain variance score =", round(sm.explained_variance_score(y_test, y_test_pred), 2) 
-print "R2 score =", round(sm.r2_score(y_test, y_test_pred), 2)
+print("Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred), 2))
+print("Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred), 2))
+print("Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred), 2))
+print("Explain variance score =", round(sm.explained_variance_score(y_test, y_test_pred), 2))
+print("R2 score =", round(sm.r2_score(y_test, y_test_pred), 2))
 
 # Model persistence
-import cPickle as pickle
+import pickle as pickle
 
 output_model_file = '3_model_linear_regr.pkl'
 
-with open(output_model_file, 'w') as f:
+with open(output_model_file, 'wb') as f:
     pickle.dump(linear_regressor, f)
 
-with open(output_model_file, 'r') as f:
+with open(output_model_file, 'rb') as f:
     model_linregr = pickle.load(f)
 
 y_test_pred_new = model_linregr.predict(X_test)
-print "\nNew mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred_new), 2) 
-
+print("\nNew mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred_new), 2))

@@ -1,8 +1,8 @@
 import sys
 
 import numpy as np
-
-filename = sys.argv[1]
+filename = 'E:/Github local/Python-Machine-Learning-Cookbook/Chapter01/data_multivar.txt'
+# filename = sys.argv[1]
 X = []
 y = []
 with open(filename, 'r') as f:
@@ -43,34 +43,34 @@ y_test_pred_ridge = ridge_regressor.predict(X_test)
 # Measure performance
 import sklearn.metrics as sm
 
-print "LINEAR:"
-print "Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred), 2) 
-print "Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred), 2) 
-print "Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred), 2) 
-print "Explained variance score =", round(sm.explained_variance_score(y_test, y_test_pred), 2) 
-print "R2 score =", round(sm.r2_score(y_test, y_test_pred), 2)
+print("LINEAR:")
+print("Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred), 2))
+print("Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred), 2))
+print("Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred), 2))
+print("Explained variance score =", round(sm.explained_variance_score(y_test, y_test_pred), 2))
+print("R2 score =", round(sm.r2_score(y_test, y_test_pred), 2))
 
-print "\nRIDGE:"
-print "Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred_ridge), 2) 
-print "Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred_ridge), 2) 
-print "Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred_ridge), 2) 
-print "Explained variance score =", round(sm.explained_variance_score(y_test, y_test_pred_ridge), 2) 
-print "R2 score =", round(sm.r2_score(y_test, y_test_pred_ridge), 2)
+print("\nRIDGE:")
+print("Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred_ridge), 2))
+print("Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred_ridge), 2))
+print("Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred_ridge), 2))
+print("Explained variance score =", round(sm.explained_variance_score(y_test, y_test_pred_ridge), 2))
+print("R2 score =", round(sm.r2_score(y_test, y_test_pred_ridge), 2))
 
 # Polynomial regression
 from sklearn.preprocessing import PolynomialFeatures
 
 polynomial = PolynomialFeatures(degree=10)
 X_train_transformed = polynomial.fit_transform(X_train)
-datapoint = [0.39,2.78,7.11]
+datapoint = [0.39, 2.78, 7.11]
 poly_datapoint = polynomial.fit_transform(datapoint)
 
 poly_linear_model = linear_model.LinearRegression()
 poly_linear_model.fit(X_train_transformed, y_train)
-print "\nLinear regression:\n", linear_regressor.predict(datapoint)
-print "\nPolynomial regression:\n", poly_linear_model.predict(poly_datapoint)
+print("\nLinear regression:\n", linear_regressor.predict(datapoint))
+print("\nPolynomial regression:\n", poly_linear_model.predict(poly_datapoint))
 
 # Stochastic Gradient Descent regressor
 sgd_regressor = linear_model.SGDRegressor(loss='huber', n_iter=50)
 sgd_regressor.fit(X_train, y_train)
-print "\nSGD regressor:\n", sgd_regressor.predict(datapoint)
+print("\nSGD regressor:\n", sgd_regressor.predict(datapoint))
